@@ -5,19 +5,19 @@
 
 ## 설치 정보
 
-- **버전**: v4.2.15 (2026-02-20 설치)
-- **설치 방식**: `claude plugin install oh-my-claudecode` (omc 마켓플레이스)
+- **버전**: 최신 (설치 버전 기록 필요)
+- **설치 방식**: `claude plugin install oh-my-claudecode` (마켓플레이스)
 - **라이선스**: MIT
-- **백업**: `~/.claude/settings.json.bak.20260220120304`
+- **백업**: `~/.claude/settings.json.bak.{TIMESTAMP}`
 
 ## 도입 범위 상세
 
 ### 변경 없는 기존 요소
 
-- 26개 MCP 서버, 9개 안전 훅, CC CHIPS 상태바
-- Custom agents, 66 existing skills
-- settings.json 권한 구조, tmux 팀 모드
-- git-workflow-v2.md, security.md, coding-style.md 등 모든 규칙 파일
+- 기존 MCP 서버, 기존 안전 훅, CC CHIPS 상태바
+- Custom agents, existing skills
+- settings.json 권한 구조, 팀 모드 설정
+- git-workflow, security, coding-style 등 모든 규칙 파일
 
 ## 업무 방식 변화 상세
 
@@ -111,8 +111,8 @@ cp ~/.claude/settings.json.bak.20260220120304 ~/.claude/settings.json
 
 ## 파일 위치
 
-- 플러그인: `~/.claude/plugins/cache/omc/oh-my-claudecode/4.2.15/`
-- .mcp.json (수정됨 - x, g 제거): 위 경로 + 마켓플레이스 소스
+- 플러그인: `~/.claude/plugins/cache/omc/oh-my-claudecode/{VERSION}/`
+- .mcp.json (수정됨): 위 경로 + 마켓플레이스 소스
 - 병합 에이전트: `~/.claude/agents/{planner,architect,code-reviewer,security-reviewer,tdd-guide,build-error-resolver}.md`
 - 백업 스크립트: `~/.claude/scripts/pre-omc-update.sh`
-- 백업: `~/.claude/settings.json.bak.20260220120304`
+- 백업: `~/.claude/settings.json.bak.{TIMESTAMP}`

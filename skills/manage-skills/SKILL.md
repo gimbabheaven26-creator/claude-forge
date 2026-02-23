@@ -46,16 +46,7 @@ argument-hint: "[선택사항: 특정 스킬 이름 또는 집중할 영역]"
 
 | 스킬 | 설명 | 커버 파일 패턴 |
 |------|------|---------------|
-| `verify-i18n` | ko.json/en.json 키 동기화 및 t() 참조 유효성 검증 | `src/messages/*.json`, `src/components/singularity-builders/**/*.tsx`, `src/components/admin/**/*.tsx`, `src/components/openclaw-master/**/*.tsx`, `src/app/[locale]/singularity-builders/**/*.tsx` |
-| `verify-openclaw-config` | openclaw.ts config ↔ i18n 값 일관성 검증 | `src/config/openclaw.ts`, `src/constants/openclaw.ts`, `src/messages/*.json` |
-| `verify-refund-api` | 환불 API errno 전달, state=0 대안 검색, postSettlement 폴백, Notion 업데이트, optimistic concurrency 검증 | `src/lib/payment/payapp.ts`, `src/app/api/**/refunds/**/route.ts`, `src/lib/payment/order-recovery.ts`, `src/lib/notion.ts` |
-| `verify-messaging` | 카카오톡 메시지 발송 센터 및 알림톡 템플릿 관리의 API, 타입, 템플릿 일관성 검증 | `src/app/api/admin/messaging/**`, `src/types/messaging-center.ts`, `src/lib/messaging/solapi/templates.ts`, `src/app/[locale]/admin/singularity-builders/messaging/**`, `src/app/[locale]/admin/singularity-builders/message-templates/**`, `src/hooks/admin/useAlimtalkTemplates.ts` |
-| `verify-upload-api` | 과제 제출 및 학습 자료 첨부 API의 상태 전환, 마감일 체크, 파일 업로드/삭제, presigned URL, config/route/storage 일관성 검증 | `src/config/upload.ts`, `src/app/api/**/submission/**/route.ts`, `src/app/[locale]/**/assignment-detail-content.tsx`, `src/components/singularity-builders/assignments/SubmissionForm.tsx`, `src/app/api/admin/lessons/[id]/attachments/**/route.ts`, `src/hooks/admin/useAttachments.ts` |
-| `verify-board-api` | 커뮤니티 보드 API 보안/정확성 + 게이미피케이션 원자성/타임존 + 프론트엔드 i18n/UX 통합 검증 | `src/app/api/singularity-builders/board/**`, `src/lib/gamification/*.ts`, `src/components/singularity-board/**`, `src/hooks/singularity-board/**`, `src/types/badges.ts`, `src/types/singularity-board.ts` |
-| `verify-enrollment-api` | singularity-builders enrollment/waitlist API 응답 구조, 이름 마스킹, 캐시 헤더, 훅-API 인터페이스 일관성 검증 | `src/app/api/singularity-builders/recent-signups/route.ts`, `src/app/api/singularity-builders/enrollment-stats/route.ts`, `src/hooks/singularity-builders/use-enrollment-stats.ts`, `src/hooks/singularity-builders/use-recent-signups.ts` |
-| `verify-announcement-sender` | 공지사항 발송 최적화 패턴 검증 (N+1 금지, bulk 발송, 타임아웃 방어, 상태 복구) | `src/lib/announcements/sender.ts`, `src/app/api/admin/announcements/[id]/status/route.ts`, `src/app/[locale]/admin/announcements/new/components/SendProgress.tsx`, `src/app/[locale]/admin/announcements/new/hooks/useAnnouncementForm.ts` |
-| `verify-enrollment-access` | enrollment 기반 접근 제어 검증 (middleware 라우트 보호, Nav 비활성화, 캐시 무효화, refundPending UI) | `src/lib/supabase/middleware.ts`, `src/components/singularity-builders/SingularityNav.tsx`, `src/components/singularity-builders/SingularityMobileNav.tsx`, `src/hooks/singularity-builders/use-cancel-enrollment.ts`, `src/app/[locale]/singularity-builders/**/lesson-*-content.tsx`, `src/app/[locale]/singularity-builders/**/assignments-content.tsx` |
-| `verify-refund-consumption` | 환불 소비율 시스템 검증 — 쿨다운/스냅샷/review-data/Discord 알림/admin UI 일관성 | `src/app/api/singularity-builders/enrollments/[id]/cancel/route.ts`, `src/lib/payment/content-consumption.ts`, `src/app/api/admin/singularity-builders/refunds/[id]/review-data/route.ts`, `src/lib/notifications/discord.ts`, `src/components/singularity-builders/CancelEnrollmentButton.tsx`, `src/app/[locale]/admin/singularity-builders/refunds/refunds-content.tsx` |
+| (프로젝트에서 `/manage-skills`로 생성됨) | (프로젝트 지침에 맞는 스킬을 생성하려면 `/manage-skills`를 실행하세요) | (자동으로 결정됨) |
 
 ## 에이전트 중복 감지 (CRITICAL)
 

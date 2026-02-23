@@ -58,16 +58,7 @@ argument-hint: "[옵션: --fix | --report-only | --severity <level> | --category
 
 | # | 스킬 | 설명 |
 |---|------|------|
-| 1 | `verify-i18n` | ko.json/en.json 키 동기화 및 t() 참조 유효성 검증 |
-| 2 | `verify-openclaw-config` | openclaw.ts config ↔ i18n 값 일관성 검증 |
-| 3 | `verify-refund-api` | 환불 API errno 전달, state=0 대안 검색, postSettlement 폴백, Notion 업데이트, optimistic concurrency 검증 |
-| 4 | `verify-messaging` | 카카오톡 메시지 발송 센터 및 알림톡 템플릿 관리의 API, 타입, 템플릿 일관성 검증 |
-| 5 | `verify-upload-api` | 과제 제출 및 학습 자료 첨부 API의 상태 전환, 마감일 체크, 파일 업로드/삭제, presigned URL, config/route/storage 일관성 검증 |
-| 6 | `verify-board-api` | 커뮤니티 보드 API 보안/정확성 + 게이미피케이션 원자성/타임존 + 프론트엔드 i18n/UX 통합 검증 |
-| 7 | `verify-announcement-sender` | 공지사항 발송 최적화 패턴 검증 (N+1 금지, bulk 발송, 타임아웃 방어, 상태 복구) |
-| 8 | `verify-enrollment-api` | singularity-builders enrollment/waitlist API 응답 구조, 이름 마스킹, 캐시 헤더, 훅-API 인터페이스 일관성 검증 |
-| 9 | `verify-enrollment-access` | enrollment 기반 접근 제어 검증 (middleware 라우트 보호, Nav 비활성화, 캐시 무효화, refundPending UI) |
-| 10 | `verify-refund-consumption` | 환불 소비율 시스템 검증 — 쿨다운/스냅샷/review-data/Discord 알림/admin UI 일관성 |
+| (프로젝트에서 `/manage-skills`로 생성됨) | (프로젝트별 verify-* 스킬은 각 프로젝트에서 동적으로 생성됩니다) | (프로젝트 지침을 참조하세요) |
 
 ## 워크플로우
 

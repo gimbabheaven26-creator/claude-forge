@@ -27,7 +27,7 @@
 
 ## What is Claude Forge?
 
-Claude Forge transforms **Claude Code** from a basic CLI into a **full-featured development environment**. One install gives you 23 specialized agents, 79 slash commands, 21 skill workflows, 23 security hooks, and 10 rule files -- all pre-wired and ready to go.
+Claude Forge transforms **Claude Code** from a basic CLI into a **full-featured development environment**. One install gives you 14 specialized agents, 40 slash commands, 15 skill workflows, 14 automation hooks, and 8 rule files -- all pre-wired and ready to go.
 
 > Think of it as a **power-user starter kit** for Claude Code: the same way oh-my-zsh enhances your terminal, Claude Forge supercharges your AI coding assistant.
 
@@ -59,11 +59,11 @@ That's it. All agents, commands, hooks, and rules are instantly available.
 
 | Category | Count | Highlights |
 |:--------:|:-----:|:-----------|
-| **Agents** | 23 | `planner` `architect` `code-reviewer` `security-reviewer` `tdd-guide` `database-reviewer` `web-designer` `codex-reviewer` `gemini-reviewer` ... |
+| **Agents** | 14+2 | `planner` `architect` `code-reviewer` `security-reviewer` `tdd-guide` `database-reviewer` `web-designer` + 2 optional |
 | **Commands** | 40 | `/commit-push-pr` `/handoff-verify` `/explore` `/tdd` `/plan` `/orchestrate` `/security-review` ... |
-| **Skills** | 21 | `build-system` `security-pipeline` `eval-harness` `team-orchestrator` `session-wrap` ... |
-| **Hooks** | 23 | 7-layer security defense, cross-model auto-review, MCP rate limiting, secret filtering |
-| **Rules** | 10 | `coding-style` `security` `git-workflow` `golden-principles` `agent-orchestration` ... |
+| **Skills** | 15 | `build-system` `security-pipeline` `eval-harness` `team-orchestrator` `session-wrap` ... |
+| **Hooks** | 14 | Security defense, MCP rate limiting, secret filtering, work tracking, code quality |
+| **Rules** | 8 | `coding-style` `security` `git-workflow` `golden-principles` `agent-orchestration` ... |
 | **MCP Servers** | 6 | `context7` `memory` `exa` `github` `fetch` `jina-reader` |
 
 ---
@@ -73,11 +73,11 @@ That's it. All agents, commands, hooks, and rules are instantly available.
 ```mermaid
 graph TB
     subgraph REPO["claude-forge (git repo)"]
-        A["agents/ (23)"]
-        C["commands/ (79)"]
-        S["skills/ (21)"]
-        H["hooks/ (23)"]
-        R["rules/ (10)"]
+        A["agents/ (14+2)"]
+        C["commands/ (40)"]
+        S["skills/ (15)"]
+        H["hooks/ (14)"]
+        R["rules/ (8)"]
         SC["scripts/"]
         CC["cc-chips/"]
         K["knowledge/"]
@@ -146,41 +146,40 @@ claude-forge/
 
 ## 🔑 Key Features
 
-### Cross-Model Review Pipeline
+### Cross-Model Review Pipeline (Optional)
 
 <p align="center">
   <img src="docs/cross-model-review.png" alt="Cross-Model Review Pipeline" width="720">
 </p>
 
-Every file edit triggers **three independent AI reviewers** via PostToolUse hooks:
+Extend Claude's native code review with **additional AI perspectives**:
 
-| Reviewer | Engine | Focus |
-|:---------|:-------|:------|
-| **Code Reviewer** | Claude (native) | Comprehensive quality, patterns, bugs |
-| **Codex Reviewer** | OpenAI Codex | Second opinion, alternative approaches |
-| **Gemini Reviewer** | Google Gemini 3 Pro | Frontend-focused, UI/UX patterns |
+| Reviewer | Engine | Focus | Setup |
+|:---------|:-------|:------|:------|
+| **Code Reviewer** | Claude (built-in) | Quality, patterns, bugs | Included |
+| **Codex Reviewer** | OpenAI Codex | Second opinion, alternatives | `agents/optional/` |
+| **Gemini Reviewer** | Google Gemini 3 Pro | Frontend, UI/UX patterns | `agents/optional/` |
 
-Three perspectives, zero manual setup. Disagreements surface real issues.
+The built-in code reviewer works out of the box. Codex and Gemini reviewers are in `agents/optional/` -- copy them to `agents/` and install the respective CLIs to enable cross-model review.
 
 ---
 
-### 7-Layer Security Defense
+### Security Defense Hooks
 
 <p align="center">
-  <img src="docs/security-layers.png" alt="7-Layer Security Defense" width="720">
+  <img src="docs/security-layers.png" alt="Security Defense Hooks" width="720">
 </p>
 
-Every action passes through layered security hooks:
+Actions pass through layered security hooks:
 
 | Layer | Hook | Protects Against |
 |:-----:|:-----|:-----------------|
 | 1 | `output-secret-filter.sh` | Leaked API keys, tokens in output |
 | 2 | `remote-command-guard.sh` | Unsafe remote commands |
 | 3 | `db-guard.sh` | Destructive SQL (DROP, TRUNCATE) |
-| 4 | `email-guard.sh` | Unauthorized email sending |
-| 5 | `ads-guard.sh` | Unintended ad platform changes |
-| 6 | `calendar-guard.sh` | Unauthorized calendar modifications |
-| 7 | `security-auto-trigger.sh` | Vulnerabilities in code changes |
+| 4 | `security-auto-trigger.sh` | Vulnerabilities in code changes |
+
+Plus **10 utility hooks** for MCP rate limiting, code quality reminders, session management, and work tracking.
 
 ---
 

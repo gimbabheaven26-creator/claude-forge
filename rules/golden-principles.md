@@ -1,6 +1,6 @@
 # Golden Principles
 
-> Code Factory 핵심 원칙 7가지. policies.yaml에서 추출.
+> 7 core principles for writing clean, maintainable code.
 
 ## 1. 불변성 (Immutability)
 

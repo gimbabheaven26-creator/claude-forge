@@ -15,16 +15,15 @@
 | Notepad | Priority Context + Working Memory 디스크 저장 | 없음 |
 | Project Memory | 빌드/테스트 명령, 자주 쓰는 파일 자동 학습 | 없음 |
 | 매직 키워드 | ultrawork, ultrathink, search, analyze 트리거 | 없음 |
-| OMC 에이전트 30개 | 플러그인 내부에 독립 존재 | 우리 31개와 공존 |
-| OMC 스킬 42개 | `oh-my-claudecode:*` 네임스페이스 | 우리 39개와 공존 |
-| OMC 훅 14개 | 플러그인 hooks.json으로 별도 실행 | 우리 18개 훅과 공존 |
+| OMC 에이전트 30개 | 플러그인 내부에 독립 존재 | 기존 에이전트와 공존 |
+| OMC 스킬 42개 | `oh-my-claudecode:*` 네임스페이스 | 기존 스킬과 공존 |
+| OMC 훅 14개 | 플러그인 hooks.json으로 별도 실행 | 기존 훅과 공존 |
 
 ## 비활성화된 기능
 
 | 기능 | 이유 |
 |------|------|
-| Codex 브릿지 (x 서버) | 코드가 OpenAI로 유출 위험. `.mcp.json`에서 제거. 단, codex CLI 직접 실행(ChatGPT 구독 인증)은 사용자 동의 하에 허용. codex-reviewer 에이전트 + codex-auto-review.sh 훅으로 운영 중 |
-| Gemini 브릿지 (g 서버) | 코드가 Google로 유출 위험. `.mcp.json`에서 제거. 단, gemini CLI 직접 실행(Google 구독 인증)은 사용자 동의 하에 허용. gemini-reviewer 에이전트 + gemini-auto-review.sh 훅으로 운영 중 |
+| 외부 API 브릿지 | 코드가 외부로 유출될 위험. CLI 직접 실행만 허용 (사용자 동의 필수) |
 | 자동 업데이트 | 플러그인 시스템이 수동 업데이트만 허용 |
 | OMC HUD | CC CHIPS 상태바 유지 |
 
@@ -37,16 +36,16 @@ OMC `<Agent_Prompt>` 구조를 채택하되 커스텀 도메인 지식을 보존
 | **planner** | planner | opus | 인터뷰 워크플로우 + sequential-thinking MCP |
 | **architect** | architect | opus | 읽기전용 분석 + 프로젝트 아키텍처 컨텍스트 |
 | **code-reviewer** | code-reviewer | opus | 2단계 리뷰(스펙→품질) + 불변성/보안 규칙 |
-| **security-reviewer** | security-reviewer | opus | OWASP 프레임워크 + Supabase 보안 체크 |
-| **tdd-guide** | test-engineer | opus | TDD Red-Green-Refactor + Mocking 패턴(Supabase/Redis/OpenAI) + 80% 커버리지 |
-| **build-error-resolver** | build-fixer | sonnet | LSP 우선 진단 + 프로젝트별 패턴(Next.js 15/Supabase/Redis/Solana) |
+| **security-reviewer** | security-reviewer | opus | OWASP 프레임워크 + 프로젝트별 보안 체크 |
+| **tdd-guide** | test-engineer | opus | TDD Red-Green-Refactor + Mocking 패턴(외부 서비스) + 80% 커버리지 |
+| **build-error-resolver** | build-fixer | sonnet | LSP 우선 진단 + 프로젝트별 기술 스택 패턴 |
 | **verify-agent** | verifier | sonnet | fresh-context 검증 + 증거 기반 검증 원칙 |
 
 구조: `<Role>`, `<Constraints>`, `<Investigation_Protocol>`, `<Failure_Modes_To_Avoid>`, `<Final_Checklist>`
 
 ## 에이전트 모델 감사 결과
 
-2026-02-20 실시. opus가 불필요한 에이전트를 sonnet으로 다운그레이드:
+opus가 불필요한 에이전트를 sonnet으로 다운그레이드:
 
 | 에이전트 | 변경 전 | 변경 후 | 근거 |
 |---------|--------|--------|------|
@@ -54,11 +53,8 @@ OMC `<Agent_Prompt>` 구조를 채택하되 커스텀 도메인 지식을 보존
 | refactor-cleaner | opus | **sonnet** | 코드 정리는 패턴 매칭 |
 | e2e-runner | opus | **sonnet** | 테스트 실행은 표준 작업 |
 | build-error-resolver | opus | **sonnet** | OMC build-fixer와 정렬, Agent_Prompt 병합 |
-| ad-optimizer-team | opus | **sonnet** | 팀 리더지만 범용 조율 |
 
-**유지(opus)**: planner, architect, code-reviewer, security-reviewer, tdd-guide, database-reviewer
-
-*scenario-coordinator는 에이전트 파일에서 이미 sonnet으로 설정되어 있으므로 opus 목록에서 제외.
+**유지(opus)**: planner, architect, code-reviewer, security-reviewer, tdd-guide
 
 ## 스킬 사용 가이드
 

@@ -23,40 +23,23 @@ Located in `~/.claude/agents/`:
 | database-reviewer | PostgreSQL/Supabase DB | opus | Schema, query optimization |
 | verify-agent | Fresh-context 검증 | sonnet | /handoff-verify 서브에이전트 |
 | web-designer | 웹 디자인 워크플로우 | sonnet | 랜딩페이지, UI 디자인 |
-| codex-reviewer | Codex CLI 세컨드 오피니언 리뷰 | sonnet | 크로스 모델 코드 검증 시 |
-| gemini-reviewer | Gemini 3 Pro 프론트엔드 리뷰 | sonnet | 프론트엔드 크로스 모델 검증 시 |
 
-### 특수 에이전트
 
-| Agent | Purpose | When to Use |
+### 유틸리티 에이전트
+
+| Agent | Purpose | Model | When to Use |
+|-------|---------|-------|-------------|
+| knowledge-builder | 논문/아티클/유튜브 요약 및 지식 누적 | sonnet | 요약, 논문, 아티클 |
+| researcher | 웹 리서치 + 팩트체크 | sonnet | 정보 수집, 기술 조사 |
+
+### Optional 에이전트 (agents/optional/)
+
+Cross-Model Review Pipeline용. 외부 CLI + 유료 구독 필요:
+
+| Agent | Purpose | Requirement |
 |-------|---------|-------------|
-| knowledge-builder | 논문/아티클/유튜브 요약 및 지식 누적 | 요약, 논문, 아티클, 읽어줘 |
-| ad-optimizer-team | 광고 최적화 Team 리더 | Google/Meta Ads 최적화 |
-| data-collector | 역사 사료 웹 수집 | 역사 데이터 수집 |
-| era-verifier | 시대 고증 검증 | 시나리오 시대 검증 |
-| history-rag | 삼국시대 사료 RAG | 역사 고증 지원 |
-| persona-audience | 대중 시청자 반응 예측 | 시나리오 반응 분석 |
-| persona-critic | 영화 평론가 리뷰 | 시나리오 비평 |
-| scenario-coordinator | 시나리오 종합 분석 | 시나리오 오케스트레이션 |
-| scene-visualizer | 장면/캐릭터 시각화 | 시나리오 시각화 |
-
-### 콘텐츠 에이전트
-
-| Agent | Purpose | When to Use |
-|-------|---------|-------------|
-| researcher | 웹 리서치 + 팩트체크 | 정보 수집, 기술 조사 |
-| thread-writer | SNS 스레드 작성 | Threads/X 콘텐츠 |
-| blog-writer | SEO 블로그 작성 | 블로그 포스트 |
-| quality-reviewer | 콘텐츠 품질 검증 | 콘텐츠 QA |
-| image-generator | 이미지 생성 (Gemini) | 썸네일, og:image |
-| guide-writer | 가이드 문서 작성 | How-to 콘텐츠 |
-| seo-optimizer | SEO 분석 | SEO 점수 검증 |
-
-## OMC Plugin Agents (oh-my-claudecode v4.2.15)
-
-OMC 플러그인이 22개 추가 에이전트를 제공 (analyst, explore, executor, debugger, verifier 등). 우리 에이전트와 충돌 없이 공존. 상세는 `omc-adoption.md` 참조.
-
-**병합 에이전트 7개** (OMC `<Agent_Prompt>` 구조 + 커스텀 도메인 지식): planner, architect, code-reviewer, security-reviewer, tdd-guide, build-error-resolver, verify-agent
+| codex-reviewer | OpenAI Codex 기반 세컨드 오피니언 | ChatGPT 구독 + `codex` CLI |
+| gemini-reviewer | Gemini 3 Pro 프론트엔드 리뷰 | Google 구독 + `gemini` CLI |
 
 ## Immediate Agent Usage
 

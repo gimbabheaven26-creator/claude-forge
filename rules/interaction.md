@@ -1,119 +1,73 @@
 # Interaction Rules
 
-## 언어 (CRITICAL)
+## Explain with Analogies
 
-모든 출력은 **반드시** 한국어로 작성한다.
-- 코드 주석: 한국어
-- 설명, 요약, 질문: 한국어
-- 커밋 메시지, PR 본문: 한국어
-- 예외: 코드 변수명, 함수명, 영문 기술 용어는 영어 유지
+When explaining code or technical concepts, use **everyday analogies** first, then follow with technical details.
 
-## 코드 설명 스타일 (CRITICAL)
-
-코드나 기술 개념을 설명할 때 **반드시 비유(analogy)**를 사용한다.
-
-### 규칙
-
-- 추상적 개념은 일상생활 비유로 풀어 설명
-- 비유 먼저 제시 → 그 다음 기술적 설명
-- 비유는 간결하게 (1-2문장)
-
-### 예시
+### Example
 
 ```
-# BAD: 비유 없이
-"useEffect는 컴포넌트 렌더링 후 사이드 이펙트를 실행하는 Hook입니다."
+# BAD: No analogy
+"useEffect runs side effects after component rendering."
 
-# GOOD: 비유 사용
-"useEffect는 식당의 '마감 정리'와 같습니다. 손님에게 음식을 내놓은(렌더링) 후에
-설거지나 재고 정리(사이드 이펙트)를 하는 거죠.
-기술적으로는 컴포넌트 렌더링 후 실행되는 Hook입니다."
+# GOOD: Analogy first
+"useEffect is like a restaurant's closing routine. After serving food (rendering),
+you do the dishes and restock (side effects).
+Technically, it's a Hook that runs after component rendering."
 ```
 
-## 결론 먼저 (CRITICAL)
+## Conclusion First
 
-핵심 결론/답변을 **맨 먼저** 제시한 후 상세 설명을 덧붙인다.
+Present the **key conclusion first**, then add supporting details.
 
-- 긴 분석/설명 전에 한 줄 결론 먼저
-- "왜냐하면~" 으로 시작하지 말 것. 결론 → 근거 순서
-- 코드 수정 시: 뭘 바꿨는지 한 줄 요약 → 상세 diff
+- One-line conclusion before long analysis
+- Never start with "Because..." — conclusion first, reasoning second
+- Code changes: one-line summary of what changed, then detailed diff
 
 ```
 # BAD
-"React의 렌더링 사이클을 보면... (중략 10줄) ...그래서 useMemo를 쓰세요."
+"Looking at React's rendering cycle... (10 lines) ...so use useMemo."
 
 # GOOD
-"useMemo로 감싸세요. 매 렌더링마다 비용이 큰 계산이 반복되고 있습니다."
+"Wrap it with useMemo. The expensive calculation repeats on every render."
 ```
 
-## 불확실하면 솔직하게 (CRITICAL)
+## Be Honest About Uncertainty
 
-확실하지 않은 내용은 **추측하지 말고** 모른다고 밝힌다.
+If unsure, **say so** instead of guessing.
 
-- "~일 수 있습니다", "아마~" 같은 추측성 답변 금지
-- 대신: "정확하지 않아서 확인이 필요합니다" + 확인 방법 제시
-- 공식 문서/소스코드로 검증 가능한 건 직접 확인 후 답변
+- No speculative answers like "maybe..." or "it could be..."
+- Instead: "I'm not sure — let me verify" + provide verification method
+- If verifiable via docs/source code, verify before answering
 
-## context7 MCP 활용 (CRITICAL)
+## context7 MCP Usage
 
-개발 관련 라이브러리/프레임워크 질문이나 작업 시, 코드를 작성하기 **전에** 반드시 context7 MCP로 최신 문서를 조회한다.
+Before writing code that uses a library/framework, **always query context7 MCP** for up-to-date documentation.
 
-### 필수 사용 상황
+### When to Use
 
-- 라이브러리 API 사용법 확인
-- 프레임워크 패턴/모범 사례 확인
-- 버전별 breaking changes 확인
-- 새로운 패키지 도입 시
+- Checking library API usage
+- Framework patterns and best practices
+- Version-specific breaking changes
+- Introducing a new package
 
-### 사용 순서
+### Steps
 
-1. `mcp__context7__resolve-library-id`로 라이브러리 ID 확인
-2. `mcp__context7__query-docs`로 관련 문서 조회
-3. 조회 결과 기반으로 코드 작성
+1. `mcp__context7__resolve-library-id` to find library ID
+2. `mcp__context7__query-docs` to query relevant docs
+3. Write code based on query results
 
-### 예외
+### Exceptions
 
-- 이미 같은 세션에서 조회한 내용
-- 기본 언어 문법 (JavaScript, Python 등 기초)
-- 프로젝트 내부 코드 (context7 대상 아님)
+- Already queried in the same session
+- Basic language syntax (JavaScript, Python fundamentals)
+- Project-internal code (not a context7 target)
 
-## 다단계 작업 시 ultrawork 모드 (CRITICAL)
+## Web Fetching
 
-3단계 이상의 워크플로우(빌드→테스트→배포, 이미지 생성→업로드→발행 등)를 수행할 때는 **반드시 ultrawork 모드를 활성화**한다.
+Prefer MCP-based fetch tools over built-in WebFetch when available:
 
-### 이유
-
-ultrawork 미활성 시 OMC Stop 훅이 멈춤을 차단하지 않아, Claude가 중간 단계에서 "턴 완료"로 판단하고 조기 중단한다.
-
-### 활성화 방법
-
-사용자 프롬프트에 `ultrawork` 키워드가 포함되면 OMC keyword-detector가 자동 활성화한다. 사용자가 키워드를 안 넣었어도, 다단계 작업이 감지되면 Claude가 **첫 응답에서** 사용자에게 ultrawork 모드 사용을 안내한다:
-
-```
-"이 작업은 여러 단계로 구성됩니다. 중간에 멈추지 않도록 ultrawork 모드를 권장합니다.
-다음 프롬프트에 'ultrawork'를 포함해 주세요."
-```
-
-### 해제
-
-작업 완료 후 `/oh-my-claudecode:cancel`로 정상 해제. 강제 해제: `/oh-my-claudecode:cancel --force`.
-
-## WebFetch 사용 금지 (CRITICAL)
-
-WebFetch 도구는 **절대 사용하지 않는다**. 사이트 응답 지연/행 시 전체 세션이 멈추는 문제가 있다.
-
-### 대체 도구
-
-| 용도 | 도구 | 설명 |
-|------|------|------|
-| 웹 페이지 내용 가져오기 | `mcp__fetch__fetch` | 무료, WebFetch보다 안정적 |
-| 웹 페이지 마크다운 변환 | `mcp__jina-reader__*` | 토큰 절약, 깔끔한 마크다운 출력 |
-
-### 우선순위
-
-1. **Jina Reader** - 토큰 절약이 큼, 마크다운 변환 품질 우수
-2. **fetch MCP** - Jina 실패 시 폴백, 무료
-
-### 예외
-
-- 없음. WebFetch는 어떤 상황에서도 사용 금지
+| Use Case | Tool | Note |
+|----------|------|------|
+| Fetch web content | `mcp__fetch__fetch` | Stable, free |
+| Convert URL to markdown | `mcp__jina-reader__*` | Token-efficient, clean output |

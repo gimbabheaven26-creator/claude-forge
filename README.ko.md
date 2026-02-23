@@ -27,7 +27,7 @@
 
 ## Claude Forge란?
 
-Claude Forge는 **Claude Code**를 기본 CLI에서 **완전한 개발 환경**으로 변환합니다. 설치 한 번으로 23개 전문 에이전트, 79개 슬래시 커맨드, 21개 스킬 워크플로우, 23개 보안 훅, 10개 규칙 파일이 모두 연결됩니다.
+Claude Forge는 **Claude Code**를 기본 CLI에서 **완전한 개발 환경**으로 변환합니다. 설치 한 번으로 14개 전문 에이전트, 40개 슬래시 커맨드, 15개 스킬 워크플로우, 14개 자동화 훅, 8개 규칙 파일이 모두 연결됩니다.
 
 > oh-my-zsh가 터미널을 강화하듯, Claude Forge는 AI 코딩 어시스턴트를 **파워 유저 도구**로 업그레이드합니다.
 
@@ -59,11 +59,11 @@ claude
 
 | 카테고리 | 수량 | 주요 항목 |
 |:--------:|:----:|:----------|
-| **에이전트** | 23 | `planner` `architect` `code-reviewer` `security-reviewer` `tdd-guide` `database-reviewer` `web-designer` `codex-reviewer` `gemini-reviewer` ... |
+| **에이전트** | 14+2 | `planner` `architect` `code-reviewer` `security-reviewer` `tdd-guide` `database-reviewer` `web-designer` + 옵션 2개 |
 | **커맨드** | 40 | `/commit-push-pr` `/handoff-verify` `/explore` `/tdd` `/plan` `/orchestrate` `/security-review` ... |
-| **스킬** | 21 | `build-system` `security-pipeline` `eval-harness` `team-orchestrator` `session-wrap` ... |
-| **훅** | 23 | 7단계 보안 방어, 크로스 모델 자동 리뷰, MCP 속도 제한, 시크릿 필터링 |
-| **규칙** | 10 | `coding-style` `security` `git-workflow` `golden-principles` `agent-orchestration` ... |
+| **스킬** | 15 | `build-system` `security-pipeline` `eval-harness` `team-orchestrator` `session-wrap` ... |
+| **훅** | 14 | 보안 방어, MCP 속도 제한, 시크릿 필터링, 작업 추적, 코드 품질 |
+| **규칙** | 8 | `coding-style` `security` `git-workflow` `golden-principles` `agent-orchestration` ... |
 | **MCP 서버** | 6 | `context7` `memory` `exa` `github` `fetch` `jina-reader` |
 
 ---
@@ -73,11 +73,11 @@ claude
 ```mermaid
 graph TB
     subgraph REPO["claude-forge (git 리포)"]
-        A["agents/ (23)"]
-        C["commands/ (79)"]
-        S["skills/ (21)"]
-        H["hooks/ (23)"]
-        R["rules/ (10)"]
+        A["agents/ (14+2)"]
+        C["commands/ (40)"]
+        S["skills/ (15)"]
+        H["hooks/ (14)"]
+        R["rules/ (8)"]
         SC["scripts/"]
         CC["cc-chips/"]
         K["knowledge/"]
@@ -146,28 +146,28 @@ claude-forge/
 
 ## 🔑 핵심 기능
 
-### 크로스 모델 리뷰 파이프라인
+### 크로스 모델 리뷰 파이프라인 (옵션)
 
 <p align="center">
   <img src="docs/cross-model-review.png" alt="크로스 모델 리뷰 파이프라인" width="720">
 </p>
 
-파일 수정 시 PostToolUse 훅을 통해 **3개 AI 리뷰어가 자동 실행**됩니다:
+Claude의 기본 코드 리뷰에 **추가 AI 관점**을 확장할 수 있습니다:
 
-| 리뷰어 | 엔진 | 초점 |
-|:-------|:-----|:-----|
-| **Code Reviewer** | Claude (네이티브) | 종합 품질, 패턴, 버그 |
-| **Codex Reviewer** | OpenAI Codex | 세컨드 오피니언, 대안 제시 |
-| **Gemini Reviewer** | Google Gemini 3 Pro | 프론트엔드, UI/UX 패턴 |
+| 리뷰어 | 엔진 | 초점 | 설정 |
+|:-------|:-----|:-----|:-----|
+| **Code Reviewer** | Claude (기본 탑재) | 품질, 패턴, 버그 | 포함됨 |
+| **Codex Reviewer** | OpenAI Codex | 세컨드 오피니언, 대안 | `agents/optional/` |
+| **Gemini Reviewer** | Google Gemini 3 Pro | 프론트엔드, UI/UX | `agents/optional/` |
 
-세 가지 관점, 수동 설정 제로. 의견 불일치가 진짜 문제를 드러냅니다.
+기본 코드 리뷰어는 바로 사용 가능합니다. Codex와 Gemini 리뷰어는 `agents/optional/`에 있으며, `agents/`로 복사하고 각 CLI를 설치하면 크로스 모델 리뷰가 활성화됩니다.
 
 ---
 
-### 7단계 보안 방어
+### 보안 방어 훅
 
 <p align="center">
-  <img src="docs/security-layers.png" alt="7단계 보안 방어" width="720">
+  <img src="docs/security-layers.png" alt="보안 방어 훅" width="720">
 </p>
 
 모든 작업이 계층형 보안 훅을 통과합니다:
@@ -177,10 +177,9 @@ claude-forge/
 | 1 | `output-secret-filter.sh` | 출력에 노출된 API 키, 토큰 |
 | 2 | `remote-command-guard.sh` | 안전하지 않은 원격 명령 |
 | 3 | `db-guard.sh` | 파괴적 SQL (DROP, TRUNCATE) |
-| 4 | `email-guard.sh` | 무단 이메일 발송 |
-| 5 | `ads-guard.sh` | 의도하지 않은 광고 플랫폼 변경 |
-| 6 | `calendar-guard.sh` | 무단 캘린더 수정 |
-| 7 | `security-auto-trigger.sh` | 코드 변경 시 취약점 |
+| 4 | `security-auto-trigger.sh` | 코드 변경 시 취약점 |
+
+추가로 MCP 속도 제한, 코드 품질 알림, 세션 관리, 작업 추적을 위한 **유틸리티 훅 10개**가 포함됩니다.
 
 ---
 

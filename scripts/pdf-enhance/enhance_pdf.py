@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PDF Enhance - QJC PDF 후처리 스크립트
+PDF Enhance - PDF post-processing
 PyMuPDF(fitz)를 사용하여 PDF에 헤더/푸터/표지 추가
 
 사용법:
@@ -23,7 +23,7 @@ except ImportError:
     sys.exit(1)
 
 
-# QJC 브랜드 컬러 (RGB 0-1 범위)
+# 브랜드 컬러 (RGB 0-1 범위)
 INDIGO = (99/255, 102/255, 241/255)
 INDIGO_DARK = (79/255, 70/255, 229/255)
 TEXT_PRIMARY = (31/255, 41/255, 55/255)
@@ -110,14 +110,14 @@ def create_cover_page(title: str, subtitle: str = "", fonts: dict = None) -> fit
     top_line_rect = fitz.Rect(0, 80, rect.width, 82)
     page.draw_rect(top_line_rect, color=None, fill=WHITE)
 
-    # QJC 로고 텍스트 (상단)
+    # Company 로고 텍스트 (상단)
     tw_logo = fitz.TextWriter(rect)
-    tw_logo.append((PAGE_MARGIN, 140), "QJC", font=fonts['bold'], fontsize=48)
+    tw_logo.append((PAGE_MARGIN, 140), "Your Organization", font=fonts['bold'], fontsize=48)
     tw_logo.write_text(page, color=WHITE)
 
-    # 퀀텀점프클럽 (로고 아래)
+    # Company subtitle (로고 아래)
     tw_company = fitz.TextWriter(rect)
-    tw_company.append((PAGE_MARGIN, 175), "퀀텀점프클럽", font=fonts['regular'], fontsize=18)
+    tw_company.append((PAGE_MARGIN, 175), "Your Organization", font=fonts['regular'], fontsize=18)
     tw_company.write_text(page, color=WHITE)
 
     # 중앙 구분선
@@ -166,7 +166,7 @@ def create_cover_page(title: str, subtitle: str = "", fonts: dict = None) -> fit
 
     # 제출자
     tw_author = fitz.TextWriter(rect)
-    tw_author.append((PAGE_MARGIN, bottom_y + 22), "제출자: QJC(퀀텀점프클럽)", font=fonts['regular'], fontsize=12)
+    tw_author.append((PAGE_MARGIN, bottom_y + 22), "Submitted by: Your Organization", font=fonts['regular'], fontsize=12)
     tw_author.write_text(page, color=WHITE)
 
     # 하단 장식 라인
@@ -180,8 +180,8 @@ def add_header_footer(
     input_path: str,
     output_path: str,
     skip_first_page: bool = True,
-    header_text: str = "QJC 퀀텀점프클럽",
-    footer_url: str = "qjc.app"
+    header_text: str = "Your Organization",
+    footer_url: str = "example.com"
 ):
     """PDF에 헤더와 푸터 추가"""
     fonts = load_fonts()
@@ -198,14 +198,14 @@ def add_header_footer(
         header_rect = fitz.Rect(0, 0, rect.width, HEADER_HEIGHT)
         page.draw_rect(header_rect, color=None, fill=INDIGO)
 
-        # 헤더 텍스트: QJC (굵게)
-        tw_qjc = fitz.TextWriter(rect)
-        tw_qjc.append((20, 26), "QJC", font=fonts['bold'], fontsize=14)
-        tw_qjc.write_text(page, color=WHITE)
+        # 헤더 텍스트: Company (굵게)
+        tw_header = fitz.TextWriter(rect)
+        tw_header.append((20, 26), "Company", font=fonts['bold'], fontsize=14)
+        tw_header.write_text(page, color=WHITE)
 
-        # 헤더 텍스트: 퀀텀점프클럽
+        # 헤더 텍스트: Your Organization
         tw_company = fitz.TextWriter(rect)
-        tw_company.append((58, 26), "퀀텀점프클럽", font=fonts['regular'], fontsize=10)
+        tw_company.append((58, 26), "Your Organization", font=fonts['regular'], fontsize=10)
         tw_company.write_text(page, color=WHITE)
 
         # 푸터 배경 (연한 회색)
@@ -267,8 +267,8 @@ def enhance_pdf(
             temp_path,
             output_path,
             skip_first_page=True,
-            header_text="QJC 퀀텀점프클럽",
-            footer_url="qjc.app"
+            header_text="Your Organization",
+            footer_url="example.com"
         )
 
         # 임시 파일 삭제
@@ -279,8 +279,8 @@ def enhance_pdf(
             input_path,
             output_path,
             skip_first_page=skip_header_first,
-            header_text="QJC 퀀텀점프클럽",
-            footer_url="qjc.app"
+            header_text="Your Organization",
+            footer_url="example.com"
         )
 
     return output_path
@@ -288,7 +288,7 @@ def enhance_pdf(
 
 def main():
     parser = argparse.ArgumentParser(
-        description='QJC PDF 후처리 (헤더/푸터/표지)',
+        description='PDF post-processing (헤더/푸터/표지)',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 예시:

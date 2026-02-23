@@ -19,8 +19,6 @@
 | 파일 | 용도 |
 |------|------|
 | ~/.claude/rules/testing.md | 테스트 전략 및 패턴 |
-| ~/.claude/rules/supabase-mcp.md | Supabase MCP 사용 가이드 |
-| ~/.claude/rules/email.md | 이메일 관련 규칙 |
 
 ## 참조 문서 (reference/ - 필요 시 Read 도구로 접근)
 
@@ -43,26 +41,6 @@ reference/ (필요 시 Read)
   omc-adoption.md (핵심, ~3KB)
     → omc-adoption-detail.md (설치/유지보수, ~3KB)
 ```
-
-## 스킬 활용 현황 (2026-02-22 기준)
-
-### 활발 사용 (주 7회+)
-commit-push-pr, dc, handoff-verify, worktree-start, sync-docs,
-worktree-cleanup, web-checklist
-
-### 간헐 사용 (주 1~6회)
-learn, verify-loop, card-news, orchestrate, save-work, next-task
-
-### 자동화 연결 대기
-| 스킬 | 상태 | 차단 사유 |
-|------|------|----------|
-| continuous-learning-v2 | 훅 활성화 완료 (액션 1) | — |
-| session-wrap | 미연결 | Session End 훅 미지원 |
-| context-sync | 미연결 | Session Start 훅 미지원 |
-| security-pipeline | 수동 호출 | handoff-verify --security로 간접 사용 |
-
-### 수동 전용 (설계상 자동화 불가)
-fix, security-review, frontend-code-review, codex-review, strategic-compact 등 30개
 
 ## 수정 가이드
 

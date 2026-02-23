@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MD to DOCX Converter with QJC Branding (v2 - Modern Design)
+MD to DOCX Converter (v2 - Modern Design)
 범용 마크다운 → DOCX 변환 스크립트
 
 사용법:
@@ -217,7 +217,7 @@ def create_styled_document() -> Document:
     return doc
 
 
-def setup_header_footer(doc: Document, branding: str = "QJC", footer_text: str = "qjc.app"):
+def setup_header_footer(doc: Document, branding: str = "Company", footer_text: str = "example.com"):
     """실제 Word 헤더/푸터 설정"""
     for section in doc.sections:
         # Header
@@ -255,7 +255,7 @@ def setup_header_footer(doc: Document, branding: str = "QJC", footer_text: str =
 # Title Section
 # ──────────────────────────────────────────────
 
-def add_title_section(doc: Document, title: str, branding: str = "QUANTUM JUMP CLUB"):
+def add_title_section(doc: Document, title: str, branding: str = "Your Organization"):
     """모던 타이틀 섹션"""
     # Branding text (small)
     brand_p = doc.add_paragraph()
@@ -601,8 +601,8 @@ def detect_doc_type(filename: str) -> str:
 def convert_markdown_to_docx(
     md_path: str,
     output_path: str,
-    branding: str = "QJC",
-    footer_text: str = "qjc.app"
+    branding: str = "Company",
+    footer_text: str = "example.com"
 ):
     """마크다운을 DOCX로 변환 (v2 - Modern Design)"""
     with open(md_path, 'r', encoding='utf-8') as f:
@@ -624,7 +624,7 @@ def convert_markdown_to_docx(
 
     # Title section
     if title:
-        add_title_section(doc, title, "QUANTUM JUMP CLUB")
+        add_title_section(doc, title, "Your Organization")
 
     # Process metadata lines (bold key-value pairs at top)
     i = 0
@@ -848,7 +848,7 @@ def find_md_files(path: str, pattern: Optional[str] = None) -> List[Path]:
 
 def main():
     parser = argparse.ArgumentParser(
-        description='마크다운 → DOCX 변환 (QJC 브랜딩 v2)',
+        description='마크다운 → DOCX 변환 (범용 버전)',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 예시:
@@ -863,8 +863,8 @@ def main():
     parser.add_argument('path', help='마크다운 파일 또는 폴더 경로')
     parser.add_argument('--pattern', '-p', help='파일 패턴 (예: "1차_*")')
     parser.add_argument('--output-dir', '-o', help='출력 폴더')
-    parser.add_argument('--branding', '-b', default='QJC', help='브랜딩 텍스트')
-    parser.add_argument('--footer', '-f', default='qjc.app', help='푸터 텍스트')
+    parser.add_argument('--branding', '-b', default='Company', help='브랜딩 텍스트')
+    parser.add_argument('--footer', '-f', default='example.com', help='푸터 텍스트')
     parser.add_argument('--pdf', action='store_true', help='PDF도 함께 생성')
 
     args = parser.parse_args()
@@ -874,7 +874,7 @@ def main():
         print("변환할 마크다운 파일이 없습니다.")
         sys.exit(1)
 
-    print(f"\n=== MD -> DOCX 변환기 v2 ({args.branding}) ===\n")
+    print(f"\n=== MD -> DOCX Converter v2 ({args.branding}) ===\n")
     print(f"변환 대상: {len(md_files)}개 파일")
     if args.pdf:
         print("PDF 변환: 활성화\n")

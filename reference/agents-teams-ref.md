@@ -77,8 +77,6 @@ settings.json의 `teammateMode` 설정:
 
 CLI 플래그: `claude --teammate-mode in-process`
 
-현재 설정: `"tmux"` (iTerm2 분할 창 자동 감지)
-
 - **In-process**: Shift+Up/Down으로 팀원 전환 (추가 설정 불필요)
 - **분할 창 (tmux/iTerm2)**: 각 팀원 별도 창, 클릭으로 직접 상호작용
 - **미지원**: VS Code 통합 터미널, Windows Terminal, Ghostty
@@ -189,8 +187,8 @@ TeamCreate → TaskCreate (tasks 배정) → Task (teammates 생성)
 - [결정] API 인증은 JWT 대신 세션 기반으로 채택
   - 이유: 모바일 앱 미지원, 서버 사이드만
   - 거부한 대안: JWT (토큰 관리 복잡도)
-- [결정] DB는 Supabase PostgreSQL 사용
-  - 이유: 팀 경험, MCP 연동
+- [결정] DB는 팀 경험에 따라 선택
+  - 이유: 팀의 기술 스택 습숙도와 인프라 연동 고려
 ```
 
 **규칙:**

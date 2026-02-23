@@ -8,13 +8,13 @@
 
 | 패턴 | Frontend/Writer | Backend/Designer | Tester/Distributor |
 |------|----------------|------------------|--------------------|
-| 풀스택 | playwright, stitch | memory, desktop-commander | playwright, analytics |
-| 콘텐츠 | exa, youtube-transcript | stitch, remotion | gmail, google-calendar |
-| 마케팅 | analytics, ads MCPs | remotion, stitch | n8n, gmail |
+| 풀스택 | Browser Automation, Data Transform | Memory, System Commands | Browser Automation, Analytics |
+| 콘텐츠 | Web Search, Content Extract | Data Transform, Video Generate | Email, Calendar |
+| 마케팅 | Analytics, Ad Management | Video Generate, Data Transform | CI/CD, Email |
 
 ## MCP-Aware Subagent 선택 가이드
 
 | 필요 MCP | 권장 type | 이유 |
 |----------|-----------|------|
-| gmail, calendar, n8n, playwright, hyperbrowser, memory, analytics, ads, data-go-* | general-purpose | Write/Bash 접근 필요 |
-| exa, context7 | Explore | 읽기 전용 리서치 |
+| Email, Calendar, CI/CD, Browser Automation, HTTP, Memory, Analytics, Ad Management, Data sources | general-purpose | Write/Bash 접근 필요 |
+| Web Search, Documentation, Content Search | Explore | 읽기 전용 리서치 |
