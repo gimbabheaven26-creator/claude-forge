@@ -21,11 +21,12 @@ $IsWSL = $false
 # 시작 안내
 # --------------------------------------------------
 Write-Host ""
-Write-Host "Claude Code 설정 파일 설치 (Windows)" -ForegroundColor Cyan
-Write-Host "=======================================" -ForegroundColor Cyan
+Write-Host "   ╔═╗┬  ┌─┐┬ ┬┌┬┐┌─┐  ╔═╗┌─┐┬─┐┌─┐┌─┐" -ForegroundColor Cyan
+Write-Host "   ║  │  ├─┤│ │ ││├┤   ╠╣ │ │├┬┘│ ┬├┤ " -ForegroundColor Cyan
+Write-Host "   ╚═╝┴─┘┴ ┴└─┘─┴┘└─┘  ╚  └─┘┴└─└─┘└─┘" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "이 스크립트는 Claude Code 설정 파일을 설치합니다."
-Write-Host "agents, rules, commands, skills, settings 등을 ~/.claude/ 폴더에 복사합니다."
+Write-Host "   Production-grade Claude Code Framework" -ForegroundColor White
+Write-Host "   github.com/sangrokjung/claude-forge" -ForegroundColor Gray
 Write-Host ""
 
 # --------------------------------------------------
@@ -200,15 +201,19 @@ function Main {
         Install-McpServers
 
         Write-Host ""
-        Write-Host "설치가 완료되었습니다! (Installation complete)" -ForegroundColor Green
+        Write-Host "  ╔══════════════════════════════════════════════════════╗" -ForegroundColor Green
+        Write-Host "  ║           Claude Forge installed!                    ║" -ForegroundColor Green
+        Write-Host "  ╠══════════════════════════════════════════════════════╣" -ForegroundColor Green
+        Write-Host "  ║  11 agents · 36 commands · 6-layer security         ║" -ForegroundColor Green
+        Write-Host "  ╚══════════════════════════════════════════════════════╝" -ForegroundColor Green
         Write-Host ""
-        Write-Host "다음 단계:" -ForegroundColor Cyan
-        Write-Host "  1. 새 터미널을 열어주세요 (Open a new terminal)"
-        Write-Host "  2. 'claude' 실행하여 Claude Code 시작 (Run 'claude')"
-        Write-Host "  3. 'claude mcp list'로 MCP 서버 확인 (Verify MCP servers)"
+        Write-Host "  Next steps:" -ForegroundColor Cyan
+        Write-Host "    1. Open a new terminal"
+        Write-Host "    2. Run 'claude' to start"
+        Write-Host "    3. Run 'claude mcp list' to verify MCP servers"
         Write-Host ""
-        Write-Host "Mac 서버 SSH 접속:" -ForegroundColor Cyan
-        Write-Host "  ssh user@mac-server.tailscale.com"
+        Write-Host "  ★ Star us if this helped: github.com/sangrokjung/claude-forge" -ForegroundColor Yellow
+        Write-Host "  ? Issues: github.com/sangrokjung/claude-forge/issues" -ForegroundColor Yellow
     }
     else {
         Write-Host ""

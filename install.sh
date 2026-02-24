@@ -23,10 +23,17 @@ detect_platform() {
 
 detect_platform
 
-echo "Claude Forge Installer"
-echo "======================"
+cat << 'BANNER'
+
+   ╔═╗┬  ┌─┐┬ ┬┌┬┐┌─┐  ╔═╗┌─┐┬─┐┌─┐┌─┐
+   ║  │  ├─┤│ │ ││├┤   ╠╣ │ │├┬┘│ ┬├┤
+   ╚═╝┴─┘┴ ┴└─┘─┴┘└─┘  ╚  └─┘┴└─└─┘└─┘
+
+   Production-grade Claude Code Framework
+   github.com/sangrokjung/claude-forge
+
+BANNER
 echo "Platform: $PLATFORM ($ARCH)"
-echo "Repo: $REPO_DIR"
 echo ""
 
 # Colors
@@ -59,6 +66,8 @@ check_deps() {
                 echo "Install with your package manager"
                 ;;
         esac
+        echo ""
+        echo -e "${YELLOW}Need help? github.com/sangrokjung/claude-forge/issues${NC}"
         exit 1
     fi
 
@@ -408,13 +417,23 @@ main() {
         install_work_tracker
 
         echo ""
-        echo -e "${GREEN}Installation complete!${NC}"
-        echo ""
-        echo "Next steps:"
-        echo "  1. Open a new terminal"
-        echo "  2. Run 'claude' to start"
-        echo "  3. Verify status line displays correctly"
-        echo "  4. Run 'claude mcp list' to verify MCP servers"
+        cat << COMPLETE
+
+  ${GREEN}╔══════════════════════════════════════════════════════╗
+  ║           Claude Forge installed!                    ║
+  ╠══════════════════════════════════════════════════════╣
+  ║  11 agents · 36 commands · 6-layer security         ║
+  ╚══════════════════════════════════════════════════════╝${NC}
+
+  Next steps:
+    1. Open a new terminal
+    2. Run 'claude' to start
+    3. Run 'claude mcp list' to verify MCP servers
+
+  ${YELLOW}★ Star us if this helped: github.com/sangrokjung/claude-forge${NC}
+  ${YELLOW}? Issues: github.com/sangrokjung/claude-forge/issues${NC}
+
+COMPLETE
     else
         echo ""
         echo -e "${RED}Installation completed with errors${NC}"

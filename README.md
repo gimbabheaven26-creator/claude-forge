@@ -12,6 +12,9 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/LICENSE-MIT-blue?style=for-the-badge" alt="MIT License"></a>
   <a href="https://claude.com/claude-code"><img src="https://img.shields.io/badge/CLAUDE_CODE-%E2%89%A51.0-blueviolet?style=for-the-badge" alt="Claude Code"></a>
   <a href="https://github.com/sangrokjung/claude-forge/stargazers"><img src="https://img.shields.io/github/stars/sangrokjung/claude-forge?style=for-the-badge&color=yellow" alt="Stars"></a>
+  <a href="https://github.com/sangrokjung/claude-forge/network/members"><img src="https://img.shields.io/github/forks/sangrokjung/claude-forge?style=for-the-badge&color=orange" alt="Forks"></a>
+  <a href="https://github.com/sangrokjung/claude-forge/graphs/contributors"><img src="https://img.shields.io/github/contributors/sangrokjung/claude-forge?style=for-the-badge&color=green" alt="Contributors"></a>
+  <a href="https://github.com/sangrokjung/claude-forge/commits/main"><img src="https://img.shields.io/github/last-commit/sangrokjung/claude-forge?style=for-the-badge" alt="Last Commit"></a>
 </p>
 
 <p align="center">
@@ -475,6 +478,32 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding agents, commands
 
 ---
 
+---
+
+## Use Claude Forge? Show it!
+
+```markdown
+[![Built with Claude Forge](https://img.shields.io/badge/Built_with-Claude_Forge-orange?style=flat-square)](https://github.com/sangrokjung/claude-forge)
+```
+
+Add this badge to your project's README to let others know you use Claude Forge.
+
+---
+
+## Contributors
+
+<a href="https://github.com/sangrokjung/claude-forge/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=sangrokjung/claude-forge" />
+</a>
+
+---
+
 ## 📄 License
 
 [MIT](LICENSE) -- use it, fork it, build on it.
+
+---
+
+<p align="center">
+  <sub>Made with ❤️ by <a href="https://github.com/sangrokjung">QJC (Quantum Jump Club)</a></sub>
+</p>
