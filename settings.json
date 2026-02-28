@@ -124,6 +124,15 @@
             "command": "~/.claude/hooks/context-sync-suggest.sh"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/forge-update-check.sh",
+            "timeout": 5000
+          }
+        ]
       }
     ],
     "UserPromptSubmit": [
