@@ -120,6 +120,21 @@
             "type": "command",
             "command": "~/.claude/hooks/remote-command-guard.sh",
             "timeout": 5000
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/build-required-check.sh",
+            "timeout": 5000
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/pending-json-remind.sh",
+            "timeout": 5000
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/contract-version-check.sh",
+            "timeout": 5000
           }
         ]
       },
@@ -170,6 +185,15 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/today-task-inject.sh",
+            "timeout": 3000
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/claude-md-guard.sh",
             "timeout": 3000
           }
         ]
