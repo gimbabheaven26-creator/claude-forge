@@ -5,6 +5,9 @@
     "ENABLE_TOOL_SEARCH": "auto:5"
   },
   "permissions": {
+    "additionalDirectories": [
+      "/Users/gihoonkim/.claude"
+    ],
     "allow": [
       "Bash(*)",
       "Read(*)",
@@ -37,7 +40,16 @@
       "mcp__memory__*",
       "mcp__github__*",
       "mcp__fetch__*",
-      "mcp__jina-reader__*"
+      "mcp__jina-reader__*",
+      "mcp__notion__API-query-data-source",
+      "mcp__notion__API-retrieve-a-database",
+      "mcp__notion__API-post-search",
+      "mcp__notion__API-patch-page",
+      "mcp__notion__API-post-page",
+      "mcp__notion__API-patch-block-children",
+      "mcp__notion__API-get-block-children",
+      "mcp__notion__API-retrieve-a-page",
+      "mcp__notion__API-update-a-block"
     ],
     "deny": [
       "WebFetch",
@@ -98,6 +110,7 @@
       "Bash(source /dev/*)*"
     ]
   },
+  "model": "claude-opus-4-6",
   "hooks": {
     "PreToolUse": [
       {
@@ -140,6 +153,24 @@
             "type": "command",
             "command": "~/.claude/hooks/forge-update-check.sh",
             "timeout": 5000
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notion-todo-inject.sh",
+            "timeout": 8000
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/today-task-inject.sh",
+            "timeout": 3000
           }
         ]
       }
@@ -198,9 +229,37 @@
             "command": "~/.claude/hooks/security-auto-trigger.sh"
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.command // \"\"' | grep -q 'git commit' && ~/.claude/hooks/notion-pending-poster.sh || true",
+            "timeout": 20000
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__notion__*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notion-usage-marker.sh"
+          }
+        ]
       }
     ],
     "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notion-pending-poster.sh",
+            "timeout": 20000
+          }
+        ]
+      },
       {
         "hooks": [
           {
@@ -214,6 +273,25 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/session-wrap-suggest.sh"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notion-update-reminder.sh"
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/post-compact-restore.sh",
+            "timeout": 5000
           }
         ]
       }
@@ -234,5 +312,14 @@
   "statusLine": {
     "type": "command",
     "command": "~/.claude/cc-chips-custom/engine.sh"
+  },
+  "effortLevel": "high",
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    }
   }
 }
