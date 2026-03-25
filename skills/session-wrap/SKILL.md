@@ -74,6 +74,44 @@ fi
 
 `/tmp/session-wrap/` 디렉토리를 생성하고 위 수집을 실행한다.
 
+## Phase 0.5: 에이전트 감지
+
+CWD 기반으로 현재 에이전트를 감지하고 `/tmp/session-wrap/agent.txt`에 기록한다.
+
+| CWD | 에이전트 후보 | 핸드오프 파일 |
+|-----|------------|--------------|
+| `~/Projects/special-education-web` | 강선생1 또는 강선생2 | `docs/today-kangteacher.md` |
+| `~/Projects/edumind` | 안선생 | `~/.claude/projects/.../memory/project_edumind.md` |
+| `~/Projects/gosari-namu-path` | 스미스 | `~/.claude/projects/.../memory/agent_smith.md` |
+| `~/` 또는 `~/.claude` | 스미스프라임 또는 클루디 | `memory/handoff_smith-prime.md` / `handoff_cloudy.md` |
+
+```bash
+CWD=$(pwd)
+HOME_DIR=$HOME
+
+if [[ "$CWD" == "$HOME_DIR/Projects/special-education-web"* ]]; then
+  AGENT_CANDIDATES="강선생1,강선생2"
+  HANDOFF_FILE="$CWD/docs/today-kangteacher.md"
+elif [[ "$CWD" == "$HOME_DIR/Projects/edumind"* ]]; then
+  AGENT_CANDIDATES="안선생"
+  HANDOFF_FILE="$HOME_DIR/.claude/projects/-Users-gihoonkim/memory/project_edumind.md"
+elif [[ "$CWD" == "$HOME_DIR/Projects/gosari-namu-path"* ]]; then
+  AGENT_CANDIDATES="스미스"
+  HANDOFF_FILE="$HOME_DIR/.claude/projects/-Users-gihoonkim/memory/agent_smith.md"
+else
+  AGENT_CANDIDATES="스미스프라임,클루디1,클루디2,클루디3"
+  HANDOFF_FILE="$HOME_DIR/.claude/projects/-Users-gihoonkim/memory/handoff_smith-prime.md"
+fi
+```
+
+후보가 2개 이상이면 AskUserQuestion으로 확인:
+```
+지금 어떤 에이전트로 작업하셨나요? [강선생1 / 강선생2]
+```
+
+감지된 에이전트명을 `AGENT_NAME` 변수로 이후 Phase에서 사용한다.
+날짜는 `DATE=$(date +%Y%m%d)`로 수집한다.
+
 ## Phase 1: 병렬 Subagent 실행
 
 4개 subagent를 **동시에** 실행한다. `--skip-*` 플래그로 특정 subagent를 건너뛸 수 있다.
@@ -187,9 +225,12 @@ AskUserQuestion으로 사용자 입력을 받는다.
 | 카테고리 | 실행 방식 |
 |---------|----------|
 | docs 업데이트 | Edit/Write로 직접 수정 |
-| scout 스킬 후보 | `/tmp/session-wrap/skill-candidates.md`에 기록 |
-| learning instinct | `~/.claude/homunculus/instincts/personal/`에 MD 파일 생성 |
-| followup 작업 | `/tmp/session-wrap/session-wrap-followups.md`에 기록 |
+| scout 스킬 후보 | `/tmp/session-wrap/{AGENT_NAME}-{DATE}-skill-candidates.md`에 기록 |
+| learning instinct | `~/.claude/homunculus/instincts/personal/{AGENT_NAME}-{DATE}-{slug}.md`에 MD 파일 생성 |
+| followup 작업 | `/tmp/session-wrap/{AGENT_NAME}-{DATE}-followups.md`에 기록 |
+| 핸드오프 업데이트 | Phase 0.5에서 감지한 `HANDOFF_FILE`에 세션 요약 추가 |
+
+파일명 예시: `강선생1-20260325-followups.md`, `스미스프라임-20260325-skill-candidates.md`
 
 ## Phase 5: 리포트 출력
 
@@ -204,14 +245,20 @@ AskUserQuestion으로 사용자 입력을 받는다.
 - Instinct 생성: K건
 - 후속 작업 기록: L건
 
+### 에이전트
+{AGENT_NAME} (감지된 에이전트명)
+
 ### 후속 작업 파일
-/tmp/session-wrap/session-wrap-followups.md
+/tmp/session-wrap/{AGENT_NAME}-{DATE}-followups.md
 
 ### 스킬 후보 파일 (있으면)
-/tmp/session-wrap/skill-candidates.md
+/tmp/session-wrap/{AGENT_NAME}-{DATE}-skill-candidates.md
+
+### 핸드오프 업데이트
+{HANDOFF_FILE} (Phase 0.5에서 감지된 파일)
 ```
 
-후속 작업 파일(`session-wrap-followups.md`)은 다음 세션 시작 시 `/sync`로 로드할 수 있다.
+후속 작업 파일(`{AGENT_NAME}-{DATE}-followups.md`)은 다음 세션 시작 시 `/sync`로 로드할 수 있다.
 
 ### 권장 다음 단계
 - `/sync-docs` - 세션 중 변경된 문서를 프로젝트에 동기화
