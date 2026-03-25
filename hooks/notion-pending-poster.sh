@@ -21,6 +21,7 @@ token = os.environ.get("NOTION_API_KEY", "")
 # DB 라우팅 (destination 필드)
 KB_DB_ID     = "323d1034-8f3f-815b-816d-fb88391f31da"  # 지식 베이스 DB
 SPRINT_DB_ID = "32dd1034-8f3f-8103-ae65-d4fda63c4bae"  # 스프린트 로그 DB
+IDEA_DB_ID   = "32ed1034-8f3f-81b9-9958-e7f46070054f"  # 아이디어 제안 DB
 
 try:
     with open(pending_file) as f:
@@ -28,8 +29,13 @@ try:
 except Exception as e:
     sys.exit(0)
 
-destination = data.get("destination", "kb")  # "sprint" 또는 "kb"(기본값)
-db_id = SPRINT_DB_ID if destination == "sprint" else KB_DB_ID
+destination = data.get("destination", "kb")  # "sprint", "idea", "kb"(기본값)
+if destination == "sprint":
+    db_id = SPRINT_DB_ID
+elif destination == "idea":
+    db_id = IDEA_DB_ID
+else:
+    db_id = KB_DB_ID
 
 title = data.get("title", "무제")
 content = data.get("content", "")
@@ -57,6 +63,24 @@ if destination == "sprint":
         properties["커밋"] = {"rich_text": [{"text": {"content": commit[:2000]}}]}
     if tags:
         properties["태그"] = {"multi_select": [{"name": t} for t in tags[:10]]}
+elif destination == "idea":
+    # 아이디어 제안 전용 속성
+    agent = data.get("agent", "")
+    category = data.get("category", [])   # list
+    priority = data.get("priority", "")
+    project = data.get("project", "")
+    summary = data.get("summary", "")
+    if agent:
+        properties["제안자"] = {"select": {"name": agent}}
+    properties["상태"] = {"select": {"name": "신규"}}
+    if category:
+        properties["카테고리"] = {"multi_select": [{"name": c} for c in category[:6]]}
+    if priority:
+        properties["우선순위"] = {"select": {"name": priority}}
+    if project:
+        properties["프로젝트"] = {"select": {"name": project}}
+    if summary:
+        properties["내용"] = {"rich_text": [{"text": {"content": summary[:2000]}}]}
 else:
     # 지식 베이스 전용 속성
     properties["유형"] = {"select": {"name": notion_type}}
@@ -130,7 +154,7 @@ try:
         os.remove(pending_file)
         # Discord 알림
         agent_name = data.get("agent", tags[0] if tags else "에이전트")
-        dest_label = "스프린트 로그" if destination == "sprint" else "지식 베이스"
+        dest_label = {"sprint": "스프린트 로그", "idea": "아이디어 제안"}.get(destination, "지식 베이스")
         send_discord(f"📋 **{agent_name}** 완료 보고\n> {title}\n> 노션 {dest_label}에 기록됨. 확인 후 다음 세션 열어주세요.")
         print(json.dumps({
             "continue": True,
