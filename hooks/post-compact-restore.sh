@@ -21,27 +21,29 @@ lines = []
 cwd = os.getcwd()
 project = os.path.basename(cwd)
 
-# 2. MEMORY.md 존재 확인
-memory_paths = [
-    os.path.join(home, '.claude/projects/-Users-gihoonkim/memory/MEMORY.md'),
-    os.path.join(cwd, 'CLAUDE.md'),
-]
+# 2. MEMORY.md 존재 확인 (CWD 기반 프로젝트 메모리 + HOME 메모리)
+cwd_slug = cwd.replace('/', '-')
+project_memory = os.path.join(home, f'.claude/projects/{cwd_slug}/memory/MEMORY.md')
+home_memory = os.path.join(home, '.claude/projects/-Users-gihoonkim/memory/MEMORY.md')
 
+memory_paths = [project_memory, home_memory, os.path.join(cwd, 'CLAUDE.md')]
 found_memory = [p for p in memory_paths if os.path.exists(p)]
 
-# 3. 핸드오프 파일 존재 확인
-handoff_paths = [
-    os.path.join(home, '.claude/projects/-Users-gihoonkim/memory/handoff-smith-prime.md'),
-    os.path.join(cwd, 'docs/sprint-beta-prep.md'),
-]
-found_handoff = [p for p in handoff_paths if os.path.exists(p)]
+# 3. 핸드오프 파일 존재 확인 (최신 핸드오프 자동 탐지)
+import glob
+handoff_dir = os.path.join(home, f'.claude/projects/{cwd_slug}/memory')
+handoff_files = sorted(glob.glob(os.path.join(handoff_dir, 'handoff_*.md')), reverse=True)
+if not handoff_files:
+    handoff_dir_home = os.path.join(home, '.claude/projects/-Users-gihoonkim/memory')
+    handoff_files = sorted(glob.glob(os.path.join(handoff_dir_home, 'handoff*.md')), reverse=True)
 
 lines.append(f'[PostCompact] 컴팩 완료 — 프로젝트: {project}')
 if found_memory:
-    lines.append(f'  컨텍스트 복구: MEMORY.md 읽기 권장')
-if found_handoff:
-    hf = os.path.basename(found_handoff[0])
-    lines.append(f'  핸드오프 확인: {hf} 읽기 권장')
+    for mp in found_memory:
+        lines.append(f'  컨텍스트 복구: {os.path.basename(mp)} 읽기 권장 ({mp})')
+if handoff_files:
+    hf = handoff_files[0]
+    lines.append(f'  최신 핸드오프: {os.path.basename(hf)} 읽기 권장')
 lines.append('  /sync 로 전체 컨텍스트 동기화 가능')
 
 print('\n'.join(lines))
