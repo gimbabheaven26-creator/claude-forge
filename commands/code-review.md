@@ -1,5 +1,5 @@
 ---
-description: 방금 작성한 코드를 보안+품질 검사합니다.
+description: 최근 변경 코드의 보안+품질+패턴 검사. diff 기반 리뷰 코멘트 생성. 전체 보안 감사는 /security-review.
 ---
 
 # Code Review

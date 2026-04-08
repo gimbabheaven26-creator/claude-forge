@@ -1,5 +1,5 @@
 ---
-description: 테스트 먼저 만들고 코드 작성. 한 단위 작업에 사용.
+description: RED→GREEN→REFACTOR 사이클로 단일 기능 구현. 실패 테스트 먼저 작성 후 최소 구현. 여러 기능 동시 구현은 /auto.
 ---
 
 # TDD Command

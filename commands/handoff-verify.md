@@ -1,6 +1,6 @@
 ---
 allowed-tools: Bash(git:*), Bash(npm:*), Bash(pnpm:*), Bash(npx:*), Read, Write, Edit, Glob, Grep, Task
-description: 빌드/테스트/린트를 한 번에 자동 검증합니다.
+description: 빌드+테스트+린트를 한 번에 검증하고 결과 리포트 생성. 구현 완료 후 커밋 전에 사용. 개별 테스트만 필요하면 직접 npm test.
 argument-hint: [--once] [--loop N] [--security] [--coverage] [--extract] [--skip-handoff]
 ---
 

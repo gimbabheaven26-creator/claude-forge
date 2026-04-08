@@ -1,6 +1,6 @@
 ---
 allowed-tools: Bash(git:*), Bash(mkdir:*), Bash(rm:*), Bash(cp:*), Read, Write
-description: 작업 상태 저장/복원 (v6)
+description: 작업 상태를 문서로 저장하여 세션 중단/전환 대비. 세션 종료 전 또는 큰 작업 중간에 사용. 세션 완전 마무리는 /session-wrap.
 argument-hint: save|restore|list|diff|delete ["이름"] [--tag 태그]
 ---
 

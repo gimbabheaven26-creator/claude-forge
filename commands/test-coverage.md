@@ -1,3 +1,6 @@
+---
+description: 테스트 커버리지 분석 + 누락 테스트 자동 생성. coverage 리포트 기반 갭 식별.
+---
 # Test Coverage
 
 Analyze test coverage and generate missing tests:

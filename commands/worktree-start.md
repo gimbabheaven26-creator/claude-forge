@@ -1,6 +1,6 @@
 ---
 allowed-tools: Bash(git:*), Read, Grep
-description: 병렬 개발용 Git Worktree 생성 + 도메인 템플릿 (v6)
+description: 병렬 개발용 Git Worktree 생성 + 도메인별 템플릿 적용. 독립 브랜치 작업 시 사용. 정리는 /worktree-cleanup.
 argument-hint: [브랜치명] [--type feature|bugfix|refactor]
 ---
 

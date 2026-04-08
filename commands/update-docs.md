@@ -1,3 +1,6 @@
+---
+description: package.json·소스 코드에서 문서 자동 동기화. 문서↔코드 불일치 해소.
+---
 # Update Documentation
 
 Sync documentation from source-of-truth:

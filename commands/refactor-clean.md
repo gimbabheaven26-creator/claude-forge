@@ -1,3 +1,6 @@
+---
+description: 데드 코드 식별 및 안전한 제거 (knip + 테스트 검증). 3+파일 변경 시 /plan 먼저.
+---
 # Refactor Clean
 
 > **참고**: 대규모 리팩토링(3파일 이상 변경 예상)은 `/plan`을 먼저 실행하세요 (Golden Principle #9: HARD-GATE).

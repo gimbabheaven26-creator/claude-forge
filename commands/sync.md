@@ -1,6 +1,6 @@
 ---
 allowed-tools: Read, Write, Edit, Grep, Glob, Bash(git:*)
-description: git pull + 문서 동기화 통합 (pull → sync-docs v7 순차 실행)
+description: git pull + 문서 동기화 통합 실행. 세션 시작 시 최신 상태 확보. pull만 필요하면 /pull.
 argument-hint: [--no-pull] [--check-only] [작업설명]
 ---
 

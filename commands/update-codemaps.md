@@ -1,3 +1,6 @@
+---
+description: 코드베이스 구조 스캔 후 아키텍처 문서(codemaps/) 자동 갱신. import/export 의존성 매핑.
+---
 # Update Codemaps
 
 Analyze the codebase structure and update architecture documentation:

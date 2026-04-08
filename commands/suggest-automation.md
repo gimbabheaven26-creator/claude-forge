@@ -1,6 +1,6 @@
 ---
 allowed-tools: Read, Grep, Glob, Bash(git:*)
-description: 반복 패턴 분석하여 자동화 기회 제안 (주기적 실행 권장)
+description: 코드베이스의 반복 패턴 분석하여 훅/스크립트/스킬 자동화 기회 제안. 주기적 실행 권장.
 argument-hint: [분석할 커밋 수, 기본 50]
 ---
 

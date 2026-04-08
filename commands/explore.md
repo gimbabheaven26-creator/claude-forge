@@ -1,6 +1,6 @@
 ---
 allowed-tools: Read, Grep, Glob, Bash(git:*)
-description: 코드베이스를 탐색하여 구조를 파악합니다.
+description: 코드베이스 구조·의존성·패턴 탐색 및 보고. 파일 찾기, 아키텍처 파악, 영향 범위 분석. 코드 변경이 필요하면 /plan 또는 /auto.
 argument-hint: [경로] [--deps]
 ---
 

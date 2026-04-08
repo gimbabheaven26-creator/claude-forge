@@ -1,6 +1,6 @@
 ---
 allowed-tools: Bash(git:*), Read, Edit, Write, Grep, Glob
-description: 교훈 기록 + 자동화 제안 (v6 - suggest-automation 통합)
+description: 세션 중 발견한 교훈 기록 + 자동화 가능 패턴 제안. 반복 실수나 새 발견 시 사용.
 argument-hint: ["교훈 내용"] [--from-error] [--from-session] [--suggest] [--list] [--edit N] [--remove N]
 ---
 

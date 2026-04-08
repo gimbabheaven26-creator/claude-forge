@@ -1,3 +1,6 @@
+---
+description: eval 기반 개발 — 스킬/프롬프트 품질 측정·비교. /eval define으로 기준 설정, /eval check로 채점.
+---
 # Eval Command
 
 Manage eval-driven development workflow.

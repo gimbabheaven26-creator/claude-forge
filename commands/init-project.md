@@ -1,6 +1,6 @@
 ---
 allowed-tools: Bash(git:*), Bash(mkdir:*), Read, Write, Glob
-description: 프로젝트 초기 설정 (v6)
+description: 새 프로젝트 초기 설정. CLAUDE.md, rules/, hooks, 스킬 구조 자동 생성.
 argument-hint: [프로젝트명] [--type next|vite|go|python|rust]
 ---
 

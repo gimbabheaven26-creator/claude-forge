@@ -1,6 +1,6 @@
 ---
 allowed-tools: Bash(git:*), Read, Grep
-description: PR 완료 후 Git Worktree 정리 (v6)
+description: PR 완료된 Git Worktree 정리 + 브랜치 삭제. /worktree-start로 만든 worktree 종료 시 사용.
 argument-hint: [브랜치명 - 생략시 현재 워크트리]
 ---
 

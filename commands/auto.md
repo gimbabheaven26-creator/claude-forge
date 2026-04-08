@@ -1,6 +1,6 @@
 ---
 allowed-tools: Bash(git:*), Bash(npm:*), Bash(pnpm:*), Bash(npx:*), Bash(go:*), Bash(cargo:*), Bash(make:*), Bash(python:*), Read, Write, Edit, Glob, Grep, Task
-description: 계획부터 PR까지 원버튼 자동 실행. 중간에 멈추지 않습니다.
+description: 기능/버그/리팩토링을 계획→구현→테스트→커밋까지 자동 실행. --mode feature|bugfix|refactor. 탐색만 필요하면 /explore, 계획만 필요하면 /plan.
 argument-hint: [작업 설명] [--mode feature|bugfix|refactor]
 ---
 

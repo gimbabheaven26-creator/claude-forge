@@ -1,6 +1,6 @@
 ---
 allowed-tools: Read, Grep, Glob
-description: 다음 작업 추천 (v6)
+description: 프로젝트 상태 분석 후 우선순위별 다음 작업 추천. TODO/이슈/미완료 항목 기반. 작업 실행은 /auto.
 argument-hint: [--from-plan]
 ---
 

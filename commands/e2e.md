@@ -1,5 +1,5 @@
 ---
-description: Generate and run end-to-end tests with Playwright. Creates test journeys, runs tests, captures screenshots/videos/traces, and uploads artifacts.
+description: Playwright E2E 테스트 생성+실행. 사용자 여정(클릭→입력→결과) 시뮬레이션. 스크린샷/비디오/트레이스 캡처. 단위 테스트는 /tdd.
 ---
 
 # E2E Command
@@ -301,6 +301,40 @@ For PMX, prioritize these E2E tests:
 4. Chart rendering
 5. Filter and sort markets
 6. Mobile responsive layout
+
+## Flaky Test Quarantine
+
+CI에서만 간헐적으로 실패하는 테스트 대응 절차:
+
+### 판정 기준
+- 로컬 3회 연속 pass + CI 2회 이상 fail → flaky 판정
+- 동일 테스트가 3회 이상 CI only fail → quarantine 대상
+
+### Locator 안정화 체크리스트
+1. **`getByRole` 우선** — CSS 클래스 셀렉터 지양 (UI 리팩토링에 깨짐)
+2. **`data-testid` 보조** — role이 없는 요소에만 사용
+3. **`networkidle` → `domcontentloaded`** — SSR 스트리밍과 충돌 방지
+4. **`waitForTimeout` 금지** — `expect(locator).toBeVisible()` 또는 `waitForSelector`로 대체
+5. **`aria-pressed`/`role=progressbar`** — 상태 기반 셀렉터 활용
+
+### Quarantine 처리
+```typescript
+// 일시 격리 — 원인 파악 후 수정
+test.fixme('flaky test name', async ({ page }) => {
+  // TODO: CI timeout issue — locator stabilization needed
+});
+```
+
+### 수정 후 검증
+```bash
+# 로컬에서 3회 반복 실행
+npx playwright test tests/e2e/target.spec.ts --repeat-each=3
+
+# CI에서 확인
+git push && gh run watch
+```
+
+---
 
 ## Best Practices
 

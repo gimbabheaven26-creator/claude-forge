@@ -1,6 +1,6 @@
 ---
 allowed-tools: Bash(git:*), Read, Grep
-description: 간단한 수정용 빠른 커밋 (v6)
+description: 간단한 수정용 빠른 커밋. 메시지 자동 생성. 큰 변경은 /commit-push-pr.
 argument-hint: [커밋 메시지]
 ---
 

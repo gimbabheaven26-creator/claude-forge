@@ -1,6 +1,6 @@
 ---
 allowed-tools: Bash(git:*), Read, Write, Glob, Grep, Task, TeamCreate, TaskCreate, TaskUpdate, TaskList, SendMessage
-description: Agent Teams 기반 병렬 오케스트레이션 (v6)
+description: Agent Teams 기반 다수 에이전트 병렬 실행. 큰 작업을 분할→동시처리→통합. 단일 작업이면 /auto.
 argument-hint: [--type feature|bugfix|refactor|review] [--parallel N] [--dry-run]
 ---
 

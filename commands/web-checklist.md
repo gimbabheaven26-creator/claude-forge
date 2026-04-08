@@ -1,6 +1,6 @@
 ---
 allowed-tools: Read, Write, Grep, Glob, Bash(git:*)
-description: 머지 후 웹 테스트 체크리스트 + 완료 추적 (v6)
+description: PR 머지 후 프로덕션 웹 테스트 체크리스트 실행+완료 추적. 배포 검증 시 사용.
 argument-hint: [--auto-from-handoff] [--detailed] [--save] [--status] [--complete ID]
 ---
 

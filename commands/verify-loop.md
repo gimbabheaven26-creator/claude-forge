@@ -1,7 +1,7 @@
 ---
 allowed-tools: Bash(npm:*), Bash(npx:*), Bash(python:*), Bash(go:*), Bash(cargo:*), Bash(make:*), Bash(git:*), Bash(rm:*), Read, Edit, Grep, Glob
 description: 자동 재검증 루프 (최대 3회 재시도, 실패 시 자동 수정)
-argument-hint: [의도 설명 - handoff.md 없으면 필수] [--max-retries N] [--only build|test|lint]
+argument-hint: [의도 설명 - handoff.md 없으면 필수] [--max-retries N] [--only build|test|lint] [--skip-v]
 ---
 
 ## Task
@@ -115,6 +115,40 @@ CLAUDE.md의 `## Learned Rules` 섹션에 추가 제안:
 - [날짜] [에러 패턴]: [재발 방지 규칙]
 ```
 
+### 5.5단계: V 심층 검증 (GAN 루프)
+
+빌드+테스트+린트가 모두 통과한 후, V를 소환하여 Completion Contract 기반 심층 검증을 실행한다.
+
+**트리거 조건:**
+- `--skip-v` 플래그가 없을 때
+- Completion Contract가 존재할 때 (prompt_plan.md 또는 /plan 출력에 `## Completion Contract` 섹션)
+- 변경 파일에 `src/` 코드가 포함될 때 (문서만 변경 시 스킵)
+
+**실행:**
+1. V를 서브에이전트로 소환 (subagent_type: v)
+2. V에게 전달: 변경 파일 목록 + Completion Contract + "Playwright로 동적 검증 포함"
+3. V가 점수 판정 (10점 만점)
+
+**결과 분기:**
+- **8점 이상 (PASS)**: 6단계로 진행
+- **6~7점 (REWORK)**: V 피드백 기반으로 자동 수정 시도 → 재검증 (최대 2회)
+- **5점 이하 (MAJOR/REJECT)**: 수동 개입 필요 안내 후 중단
+
+```
+🔍 V 심층 검증 중...
+├── Completion Contract: N/M 통과 (X%)
+├── Playwright 동적 검증: ✅/❌
+├── 점수: N/10
+└── 판정: PASS / REWORK / MAJOR
+```
+
+**REWORK 시 자동 수정 루프:**
+```
+V 피드백 → X 수정 → V 재검증 (최대 2회)
+                ↕
+        GAN 루프 (생성자-평가자 경쟁)
+```
+
 ### 6단계: 통과 시
 1. `rm .claude/handoff.md` (있으면)
 2. 자동 체크포인트 저장 제안
@@ -124,5 +158,6 @@ CLAUDE.md의 `## Learned Rules` 섹션에 추가 제안:
 ✅ Verification Loop 완료 (N회 시도, 성공)
 ════════════════════════════════════════════════════════════════
 
+V 심층 검증: N/10 (PASS)
 다음 단계: /commit-push-pr --merge
 ```

@@ -1,6 +1,6 @@
 ---
 allowed-tools: Bash(npm:*), Bash(npx:*), Bash(pip:*), Bash(cargo:*), Bash(grep:*), Bash(git:*), Read, Glob, Grep
-description: CWE 기반 보안 검토 + STRIDE 위협 모델링 (v6 - effort:max 강제)
+description: CWE 기반 보안 취약점 검토 + STRIDE 위협 모델링. 전체 코드베이스 또는 특정 파일 대상. 빠른 코드 품질 체크만 필요하면 /code-review.
 argument-hint: [파일/디렉토리] [--auto] [--quick] [--cwe] [--stride] [--deps] [--report markdown|json]
 ---
 

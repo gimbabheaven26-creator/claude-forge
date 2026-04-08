@@ -1,6 +1,6 @@
 ---
 allowed-tools: Read, Write, Edit, Grep, Glob, Bash(git:*)
-description: prompt_plan.md, spec.md, CLAUDE.md + rules/ 문서 동기화 (v7)
+description: prompt_plan.md, spec.md, CLAUDE.md, rules/ 간 문서 일관성 검증+동기화. 문서 수정 후 사용.
 argument-hint: [--check-only]
 ---
 
